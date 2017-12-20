@@ -40,6 +40,10 @@ function requires (dir, whitelist, isLoadDir) {
     if (fs.existsSync(filePath + '.js') && fs.lstatSync(filePath + '.js').isFile()) {
       return require(filePath)
     }
+    // 加载文件夹下的index.js
+    if (fs.existsSync(path.resolve(filePath, 'index.js'))) {
+      return require(filePath)
+    }
   }
   var fileList = fs.readdirSync(filePath, 'utf8')
   var modules = {}
