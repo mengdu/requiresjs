@@ -34,10 +34,10 @@ function requires (dir, whitelist, isLoadDir) {
   var filePath = resolve(dir)
   isLoadDir = isLoadDir || typeof whitelist === 'boolean' ? whitelist : false
   whitelist = isArr(whitelist) ? whitelist : (typeof whitelist === 'string' ? [whitelist] : [])
-  // console.log(filePath)
+  // console.log(filePath, isLoadDir)
+  // 优先载入.js
   if (!isLoadDir) {
-    var stat = fs.lstatSync(filePath + '.js')
-    if (stat.isFile()) {
+    if (fs.existsSync(filePath + '.js') && fs.lstatSync(filePath + '.js').isFile()) {
       return require(filePath)
     }
   }
